@@ -141,6 +141,6 @@ morph_mvt <- summarize_trajectories(trajectory.data.filtered, calculate.median=F
 summarize_populations(trajectory.data.filtered, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file)
 
 # create overlays for validation
-create_overlays(to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, 2048, 2048, difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
+create_overlays(trajectory.data.filtered, to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, 2048, 2048, difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
 
 ########################################################################
