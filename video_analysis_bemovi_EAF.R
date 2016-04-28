@@ -17,6 +17,8 @@ library(bemovi)
 
 # video frame rate (in frames per second)
 fps <- 25
+# length of video (in frames)
+total_frames <- 500
 
 # measured volume (in microliter)
 measured_volume <- 34.4 # for Leica M205 C with 1.6 fold magnification, sample height 0.5 mm and Hamamatsu Orca Flash 4
@@ -59,7 +61,7 @@ filter_median_step_length <- 5
 # MORE PARAMETERS (USUALLY NOT CHANGED)
 
 # set paths to ImageJ and particle linker standalone
-IJ.path <- "/home/emanuel/bin/ImageJ/ij.jar"
+IJ.path <- "/home/emanuel/bin/ImageJ"
 to.particlelinker <- "/home/emanuel/bin/ParticleLinker"
 
 # directories and file names
@@ -113,9 +115,6 @@ if(video.format == "mov"){
 # check whether the thresholds make sense (set "dark backgroud" and "red")
 #check_threshold_values(to.data, raw.video.folder, ijmacs.folder, 0, difference.lag, thresholds, IJ.path, memory.alloc)
 
-# reset thresholds accordingly
-#thresholds <- c(10,255)
-
 ######################################################################
 # VIDEO ANALYSIS
 
@@ -138,9 +137,15 @@ trajectory.data.filtered <- filter_data(trajectory.data, filter_min_net_disp, fi
 morph_mvt <- summarize_trajectories(trajectory.data.filtered, calculate.median=F, write = T, to.data, merged.data.folder)
 
 # get sample level info
-summarize_populations(trajectory.data.filtered, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file)
+summarize_populations(trajectory.data.filtered, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file, total_frames)
 
 # create overlays for validation
 create_overlays(trajectory.data.filtered, to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, 2048, 2048, difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
 
+########################################################################
+# some cleaning up
+#system("rm -r 2_particle_data")
+#system("rm -r 3_trajectory_data")
+system("rm -r 4a_temp_overlays")
+system("rm -r ijmacs")
 ########################################################################
