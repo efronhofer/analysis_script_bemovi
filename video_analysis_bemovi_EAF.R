@@ -40,7 +40,7 @@ thresholds <- c(10,255) # don't change the second value
 ######################################################################
 # FILTERING PARAMETERS 
 #(optimized for Leica M205 C with 1.6 fold magnification, sample height 0.5 mm and Hamamatsu Orca Flash 4)
-# tested species: Tet, Col, Pau, Eug, Chi, Ble, Ceph
+# tested species: Tet, Col, Pau, Eug, Chi, Ble, Ceph, Lox, Spi
 
 # min and max size: area in pixels
 particle_min_size <- 5
@@ -52,10 +52,10 @@ trajectory_link_range <- 3
 trajectory_displacement <- 16
 
 # these values are in the units defined by the parameters above: fps (seconds), measured_volume (microliters) and pixel_to_scale (micometers)
-filter_min_net_disp <- 50
+filter_min_net_disp <- 25
 filter_min_duration <- 1
 filter_detection_freq <- 0.1
-filter_median_step_length <- 5
+filter_median_step_length <- 3
 
 ######################################################################
 # MORE PARAMETERS (USUALLY NOT CHANGED)
