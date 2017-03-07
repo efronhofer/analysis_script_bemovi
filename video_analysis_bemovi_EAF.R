@@ -60,9 +60,17 @@ filter_median_step_length <- 3
 ######################################################################
 # MORE PARAMETERS (USUALLY NOT CHANGED)
 
+# UNIX
 # set paths to ImageJ and particle linker standalone
 IJ.path <- "/home/emanuel/bin/ImageJ"
 to.particlelinker <- "/home/emanuel/bin/ParticleLinker"
+
+# WINDOWS
+# set paths to ImageJ, particle linker standalone and java
+# note: paths should not be too long (less than 250 characters incl. folder and file names)
+#IJ.path <- "C:/ImageJ/ImageJ.exe"
+#to.particlelinker <- "C:/"
+#java.path <- "C:/java/bin/javaw.exe"
 
 # directories and file names
 to.data <- paste(getwd(),"/",sep="")
@@ -82,6 +90,7 @@ memory.alloc <- c(50000) # hp machine
 
 ######################################################################
 # REFORMAT VIDEOS IF NOT CXD OR AVI
+# this has only been tested under Linux
 
 # if videos are TIFF stacks (e.g. from Hamamatsu) they need to be converted to avi before bemovi can analyse them
 # the TIFF stacks should be saved in "1_raw_tiff"
