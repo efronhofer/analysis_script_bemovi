@@ -9,7 +9,7 @@ rm(list=ls())
 
 # load package
 #library(devtools)
-#install_github("efronhofer/bemovi", ref="eaf_dev")
+#install_github("efronhofer/bemovi", ref="master")
 library(bemovi)
 
 ######################################################################
