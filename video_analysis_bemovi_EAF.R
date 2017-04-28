@@ -85,8 +85,11 @@ merged.data.folder <- "5_merged_data/"
 ijmacs.folder <- "ijmacs/"
 
 # RAM allocation
-memory.alloc <- c(50000) # hp machine
+memory.alloc <- c(60000) # hp machine
 #memory.alloc <- c(30000) # lg machine
+
+# RAM per particle linker instance
+memory.alloc.perLinker <- c(10000)
 
 ######################################################################
 # REFORMAT VIDEOS IF NOT CXD OR AVI
@@ -131,7 +134,7 @@ if(video.format == "mov"){
 locate_and_measure_particles(to.data, raw.video.folder, particle.data.folder, difference.lag, thresholds, min_size = particle_min_size, max_size = particle_max_size, IJ.path, memory.alloc)
 
 # link the particles
-link_particles(to.data, particle.data.folder, trajectory.data.folder, linkrange = trajectory_link_range, disp = trajectory_displacement, start_vid = 1, memory = memory.alloc)
+link_particles(to.data, particle.data.folder, trajectory.data.folder, linkrange = trajectory_link_range, disp = trajectory_displacement, start_vid = 1, memory = memory.alloc, memory_per_linkerProcess = memory.alloc.perLinker)
 
 # merge info from description file and data
 merge_data(to.data, particle.data.folder, trajectory.data.folder, video.description.folder, video.description.file, merged.data.folder)
