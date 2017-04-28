@@ -3,13 +3,13 @@
 #
 # Emanuel A. Fronhofer
 #
-# October 2016
+# April 2017
 ######################################################################
 rm(list=ls())
 
 # load package
 #library(devtools)
-#install_github("efronhofer/bemovi", ref="master")
+#install_github("efronhofer/bemovi", ref="experimental")
 library(bemovi)
 
 ######################################################################
