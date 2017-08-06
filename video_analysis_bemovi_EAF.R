@@ -89,7 +89,7 @@ memory.alloc <- c(60000) # hp machine
 #memory.alloc <- c(30000) # lg machine
 
 # RAM per particle linker instance
-memory.alloc.perLinker <- c(10000)
+memory.alloc.perLinker <- c(8000)
 
 ######################################################################
 # REFORMAT VIDEOS IF NOT CXD OR AVI
