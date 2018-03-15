@@ -1,10 +1,24 @@
 # R script to analyse protist microcosm video samples using BEMOVI
 
-The analysis script has been tested at a 1.6 x 10 fold magnification (Leica stereomicroscope & Hamamatsu Orca Flash 4 camera) for the following protist species: 
+Emanuel A. Fronhofer
+
+March 2018
+
+This is an experimental version that parallelises particle linking.
+
+The analysis script has been tested for the following imaging setups: 
+* Perfex Pro 10 stereomicrocope with Perfex SC38800 (IDS UI-3880LE-M-GL) camera,
+* Nikon SMZ1500 stereomicrocope with Hamamatsu Orca Flash 4 camera,
+* Leica M205 C stereomicrocope with Canon 5D Mark III camera,
+* Leica M205 C stereomicrocope with Hamamatsu Orca Flash 4 camera.
+
+The analysis script has been tested for the following protist species: 
 * Tetrahymena pyriformis, 
 * Tetrahymena thermophila,
 * Colpidium sp.,
 * Paramecium aurelia, 
+* Paramecium caudatum,
+* Didinium nasutum,
 * Euglena gracilis, 
 * Chilomonas sp., 
 * Blepharisma sp., 
@@ -14,8 +28,5 @@ The analysis script has been tested at a 1.6 x 10 fold magnification (Leica ster
 
 For general information on bemovi see: http://bemovi.info/ . 
 
-The script runs with this version of bemovi: https://github.com/efronhofer/bemovi/tree/eaf_dev
+The script runs with this version of bemovi: https://github.com/efronhofer/bemovi/tree/experimental
 
-Emanuel A. Fronhofer
-
-October 2016
