@@ -21,7 +21,7 @@ fps <- 15
 total_frames <- 150
 
 # magnification
-# this parameter sets "measured_volume" and "pixel_to_scale" for Perfex Pro 10 stereomicrocope with Perfex SC38800 (IDS UI-3880LE-M-GL) camera
+# this parameter sets "measured_volume" and "pixel_to_scale" for Perfex Pro 10 stereomicrocope with Perfex SC38800 (IDS UI-3880LE-M-GL) camera and sample height = 0.5mm
 # if other devices are used, set the two paramneters manually
 # possible values: 0.8, 1, 2, 3
 magnification <- 1
@@ -132,25 +132,20 @@ if(!is.element(magnification, c(0.8,1,2,3))){
 
 # if videos are TIFF stacks they need to be converted to avi before bemovi can analyse them
 # the TIFF stacks should be saved in "1_raw_tiff"
+# note: works only for 25 fps
 if(video.format == "tiff"){
   system("mkdir 1_raw")
   system(paste("~/bin/ImageJ/jre/bin/java -Xmx",memory.alloc,"m -jar ~/bin/ImageJ/ij.jar -batch tif_to_avi.ijm",sep=""))
 }
 
-# if videos are .mov videos (e.g. from Canon camera) they need to be converted to avi before bemovi can analyse them
+# if videos are .mov videos they need to be converted to avi before bemovi can analyse them
 # the mov videos should be saved in "1_raw_mov"
 if(video.format == "mov"){
   system("mkdir 1_raw")
   # convert all files in the directory
   for (i in 1:length(list.files("1_raw_mov"))){
-    if(i < 10){
-      filename <- paste("sample_000",i,sep="")
-    }else{
-      filename <- paste("sample_00",i,sep="")
-    }
-    
     # in older distros use ffmpeg with the same syntax
-    system(paste("avconv -i 1_raw_mov/",filename,".MOV  -f avi -vcodec mjpeg -t ",total_frames/fps," 1_raw/",filename,".avi",sep=""))
+    system(paste("avconv -i 1_raw_mov/",list.files("1_raw_mov")[i]," -f avi -vcodec mjpeg -t ",total_frames/fps," 1_raw/",gsub(".mov", '', list.files("1_raw_mov")[i], ignore.case = T),".avi",sep=""))
   }
 }
 
