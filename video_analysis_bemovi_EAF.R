@@ -3,7 +3,7 @@
 #
 # Emanuel A. Fronhofer
 #
-# October 2016
+# March 2018
 ######################################################################
 rm(list=ls())
 
@@ -16,9 +16,9 @@ library(bemovi)
 # VIDEO PARAMETERS
 
 # video frame rate (in frames per second)
-fps <- 25
+fps <- 15
 # length of video (in frames)
-total_frames <- 500
+total_frames <- 150
 
 # measured volume (in microliter)
 measured_volume <- 34.4 # for Leica M205 C with 1.6 fold magnification, sample height 0.5 mm and Hamamatsu Orca Flash 4
@@ -30,12 +30,11 @@ pixel_to_scale <- 4.05 # for Leica M205 C with 1.6 fold magnification, sample he
 
 # specify video file format (one of "avi","cxd","mov","tiff")
 # bemovi only works with avi and cxd. other formats are reformated to avi below
-video.format <- "cxd"
+video.format <- "avi"
 
 # setup
 difference.lag <- 10
-thresholds <- c(10,255) # don't change the second value
-#thresholds <- c(50,255)
+thresholds <- c(50,255) # don't change the second value
 
 ######################################################################
 # FILTERING PARAMETERS 
@@ -85,8 +84,8 @@ merged.data.folder <- "5_merged_data/"
 ijmacs.folder <- "ijmacs/"
 
 # RAM allocation
-memory.alloc <- c(50000) # hp machine
-#memory.alloc <- c(30000) # lg machine
+memory.alloc <- c(60000) # Dell machine
+#memory.alloc <- c(14000) # Lenovo machine
 
 ######################################################################
 # REFORMAT VIDEOS IF NOT CXD OR AVI
