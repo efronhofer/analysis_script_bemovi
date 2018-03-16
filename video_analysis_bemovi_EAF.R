@@ -153,7 +153,7 @@ if(video.format == "mov"){
 # TESTING
 
 # check file format and naming
-#check_video_file_names(to.data,raw.video.folder)
+#check_video_file_names(to.data,raw.video.folder,video.description.folder,video.description.file)
 
 # check whether the thresholds make sense (set "dark backgroud" and "red")
 #check_threshold_values(to.data, raw.video.folder, ijmacs.folder, 0, difference.lag, thresholds, IJ.path, memory.alloc)
