@@ -24,7 +24,7 @@ total_frames <- 150
 # this parameter sets "measured_volume" and "pixel_to_scale" for Perfex Pro 10 stereomicrocope with Perfex SC38800 (IDS UI-3880LE-M-GL) camera and sample height = 0.5mm
 # if other devices are used, set the two paramneters manually
 # possible values: 0.8, 1, 2, 3
-magnification <- 1
+magnification <- 2
 
 # specify video file format (one of "avi","cxd","mov","tiff")
 # bemovi only works with avi and cxd. other formats are reformated to avi below
