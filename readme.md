@@ -2,15 +2,16 @@
 
 Emanuel A. Fronhofer
 
-March 2018
+February 2021
 
-This is an experimental version that parallelises particle linking.
+This is an experimental version that parallellises particle linking.
 
 The analysis script has been tested for the following imaging setups: 
 * Perfex Pro 10 stereomicrocope with Perfex SC38800 (IDS UI-3880LE-M-GL) camera,
 * Nikon SMZ1500 stereomicrocope with Hamamatsu Orca Flash 4 camera,
 * Leica M205 C stereomicrocope with Canon 5D Mark III camera,
 * Leica M205 C stereomicrocope with Hamamatsu Orca Flash 4 camera.
+* Biotek Cytation 5
 
 The analysis script has been tested for the following protist species: 
 * Tetrahymena pyriformis, 
