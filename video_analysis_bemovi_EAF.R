@@ -408,7 +408,6 @@ if(execute_analysis == TRUE){
       system("rm -r 0_video_description")
       system("rm -r 1_raw*")
       system("rm -r 5_merged_data")
-      system("rm -r 0_video_description")
     }
   }
   
