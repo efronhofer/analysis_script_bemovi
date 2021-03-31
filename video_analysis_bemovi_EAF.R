@@ -331,11 +331,13 @@ if(execute_analysis == TRUE){
   }
   
   # if analysis mode is "remote" the local copy of the videos in the original format can already be deleted to gain storage space
-  
   if(data_location == "remote"){
     # check if all files have been reformatted
     if(length(list.files("1_raw")) == length(list.files(paste0("1_raw_",video.format)))){
       system(paste0("rm -r 1_raw_",video.format))
+    }else{
+      execute_analysis <- FALSE
+      print("ERROR WHILE REFORMATTING VIDEO FILES")
     }
   }
   
