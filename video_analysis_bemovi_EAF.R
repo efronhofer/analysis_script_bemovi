@@ -9,7 +9,7 @@ rm(list=ls())
 
 # load package
 #library(devtools)
-#install_github("efronhofer/bemovi", ref="experimental")
+#install_github("efronhofer/bemovi", ref="ffmpeg_overlays")
 library(bemovi)
 
 ######################################################################
@@ -379,7 +379,8 @@ if(execute_analysis == TRUE){
   #summarize_populations(trajectory.data, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file, total_frames)
   
   # create overlays for validation
-  create_overlays(trajectory.data.filtered, to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, image_resolution[1], image_resolution[2], difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
+  create_overlays_ffmpeg(to.data, trajectory.data.filtered, raw.video.folder, temp.overlay.folder, overlay.folder, fps, total_frames/fps, image_resolution[1], image_resolution[2])
+  #create_overlays(trajectory.data.filtered, to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, image_resolution[1], image_resolution[2], difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
   #create_overlays(trajectory.data, to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, image_resolution[1], image_resolution[2], difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
   
   ########################################################################
@@ -392,6 +393,7 @@ if(execute_analysis == TRUE){
   ########################################################################
   # copy data and analysis script to server if data location is remote
   if(data_location == "remote"){
+    # copy merged data folder
     system(paste0("cp -r ", getwd(),"/",merged.data.folder, " ",project_path_server))
     
     # check that copying worked
@@ -403,6 +405,7 @@ if(execute_analysis == TRUE){
       print("COPY ERROR OF RESULTS TO SERVER: FILE NUMBERS INCORRECT")
     }
     
+    # copy R script
     system(paste0("cp ", getwd(),"/*.R", " ",project_path_server))
     
     # check that copying worked
@@ -414,11 +417,24 @@ if(execute_analysis == TRUE){
       print("COPY ERROR OF RESULTS TO SERVER: FILE NUMBERS INCORRECT")
     }
     
+    # copy overlay folder
+    system(paste0("cp -r ", getwd(),"/",overlay.folder, " ",project_path_server))
+    
+    # check that copying worked
+    no_res_files_to_copy <- length(list.files(paste0(getwd(),"/",overlay.folder), recursive = T))
+    no_res_files_remote <- length(list.files(paste0(project_path_server,"/",overlay.folder), recursive = T))
+    
+    if(no_res_files_remote != no_res_files_to_copy){
+      execute_analysis <- FALSE
+      print("COPY ERROR OF RESULTS TO SERVER: FILE NUMBERS INCORRECT")
+    }
+    
     if(execute_analysis == TRUE){
       # clean up locally (delete everything)
-      system("rm -r 1_raw")
-      system("rm -r 0_video_description")
-      system("rm -r 5_merged_data")
+      system(paste0("rm -r ", video.description.folder))
+      system(paste0("rm -r ", raw.video.folder))  
+      system(paste0("rm -r ", overlay.folder))
+      system(paste0("rm -r ", merged.data.folder))  
     }
   }
   
@@ -426,7 +442,7 @@ if(execute_analysis == TRUE){
   #final message
   if(execute_analysis == TRUE){
     print("Analysis done.")
-    print("Please check overlays and delete afterwards.")
+    #print("Please check overlays and delete afterwards.")
   }
 }
 ########################################################################
