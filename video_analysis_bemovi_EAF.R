@@ -372,17 +372,13 @@ if(execute_analysis == TRUE){
   
   # summarize trajectory data to individual-based data
   morph_mvt <- summarize_trajectories(trajectory.data.filtered, calculate.median=F, write = T, to.data, merged.data.folder)
-  #morph_mvt <- summarize_trajectories(trajectory.data, calculate.median=F, write = T, to.data, merged.data.folder)
-  
+ 
   # get sample level info
   summarize_populations(trajectory.data.filtered, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file, total_frames)
-  #summarize_populations(trajectory.data, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file, total_frames)
-  
+
   # create overlays for validation
   create_overlays_ffmpeg(to.data, trajectory.data.filtered, raw.video.folder, temp.overlay.folder, overlay.folder, fps, total_frames/fps, image_resolution[1], image_resolution[2])
-  #create_overlays(trajectory.data.filtered, to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, image_resolution[1], image_resolution[2], difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
-  #create_overlays(trajectory.data, to.data, merged.data.folder, raw.video.folder, temp.overlay.folder, overlay.folder, image_resolution[1], image_resolution[2], difference.lag, type = "label", predict_spec = F, IJ.path, contrast.enhancement = 1, memory = memory.alloc)
-  
+
   ########################################################################
   # some cleaning up
   system("rm -r 2_particle_data")
@@ -442,7 +438,6 @@ if(execute_analysis == TRUE){
   #final message
   if(execute_analysis == TRUE){
     print("Analysis done.")
-    #print("Please check overlays and delete afterwards.")
   }
 }
 ########################################################################
