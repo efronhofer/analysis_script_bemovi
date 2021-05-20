@@ -377,7 +377,7 @@ if(execute_analysis == TRUE){
   summarize_populations(trajectory.data.filtered, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file, total_frames)
 
   # create overlays for validation
-  create_overlays_ffmpeg(to.data, trajectory.data.filtered, raw.video.folder, temp.overlay.folder, overlay.folder, fps, total_frames/fps, image_resolution[1], image_resolution[2])
+  create_overlays_ffmpeg(to.data, trajectory.data.filtered, raw.video.folder, temp.overlay.folder, overlay.folder, fps, total_frames/fps, image_resolution[1], image_resolution[2], "both")
 
   ########################################################################
   # some cleaning up
