@@ -34,8 +34,11 @@ magnification <- 2.5
 
 # video frame rate (in frames per second)
 fps <- 15
-# length of video (in frames)
+# length of video (in frames); if the start is discarded this is the length of the final video, after cutting
+# note: video cutting is currently only implemented for wmv files and has only been tested under Linux
 total_frames <- 150
+# length of discarded section (if applicable); if nothing is discarded, set to 0
+discarded_frames <- 50
 
 ######################################################################
 # MORE PARAMETERS (USUALLY NOT CHANGED)
@@ -292,6 +295,7 @@ if(data_location == "remote"){
 ######################################################################
 # REFORMAT VIDEOS IF NOT CXD OR AVI
 # this has only been tested under Linux
+# this section also allows to cut videos to the right length
 
 if(execute_analysis == TRUE){
   
@@ -321,12 +325,21 @@ if(execute_analysis == TRUE){
     }
   }
   
-  
   if(video.format == "wmv"){
     system("mkdir 1_raw")
-    # convert all files in the directory
-    for (i in 1:length(list.files("1_raw_wmv"))){
-      system(paste("ffmpeg -i \"1_raw_wmv/",list.files("1_raw_wmv")[i],"\" -f avi -vcodec rawvideo -pix_fmt gray8 -vf negate -t ",total_frames/fps," \"1_raw/",gsub(" ","_",gsub(".wmv", '', list.files("1_raw_wmv")[i], ignore.case = T),fixed=T),".avi\" ",sep=""))
+    
+    if(discarded_frames==0){  
+      # if frames don't need to be discarded at the beginning of the video
+      # convert all files in the directory
+      for (i in 1:length(list.files("1_raw_wmv"))){
+        system(paste("ffmpeg -i \"1_raw_wmv/",list.files("1_raw_wmv")[i],"\" -f avi -vcodec rawvideo -pix_fmt gray8 -vf negate -t ",total_frames/fps," \"1_raw/",gsub(" ","_",gsub(".wmv", '', list.files("1_raw_wmv")[i], ignore.case = T),fixed=T),".avi\" ",sep=""))
+      }
+    }else{
+      # if frames do not need to be discarded at the beginning of the video
+      # convert all files in the directory
+      for (i in 1:length(list.files("1_raw_wmv"))){
+        system(paste("ffmpeg -ss ",discarded_frames/fps," -i \"1_raw_wmv/",list.files("1_raw_wmv")[i],"\" -f avi -vcodec rawvideo -pix_fmt gray8 -vf negate -t ",(total_frames+discarded_frames)/fps," \"1_raw/",gsub(" ","_",gsub(".wmv", '', list.files("1_raw_wmv")[i], ignore.case = T),fixed=T),".avi\" ",sep=""))
+      }
     }
   }
   
