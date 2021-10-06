@@ -33,12 +33,12 @@ magnification <- 2.5
 # VIDEO PARAMETERS: these should always be the same
 
 # video frame rate (in frames per second)
-fps <- 15
+fps <- 10
 # length of video (in frames); if the start is discarded this is the length of the final video, after cutting
 # note: video cutting is currently only implemented for wmv files and has only been tested under Linux
-total_frames <- 150
+total_frames <- 170
 # length of discarded section (if applicable); if nothing is discarded, set to 0
-discarded_frames <- 50
+discarded_frames <- 30
 
 ######################################################################
 # MORE PARAMETERS (USUALLY NOT CHANGED)
@@ -216,7 +216,7 @@ if(!is.element(data_source, c("microscope", "cytation"))){
     }else{
       if(magnification==2.5){
         # correction factor (extracted empirically from correlation)
-        vol_corr_fact <- 2.1
+        vol_corr_fact <- 5.88 #2.1 (new correction factor with oil)
         # measured volume (in microliter)
         measured_volume <- 6.177^2 * 0.1872 * vol_corr_fact #square field of view (in mm) times depth of field (in mm)
         # size of a pixel (in micrometer)
