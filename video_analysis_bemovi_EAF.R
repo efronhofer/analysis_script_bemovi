@@ -326,20 +326,25 @@ if(execute_analysis == TRUE){
   }
   
   if(video.format == "wmv"){
+    # make raw video folder
     system("mkdir 1_raw")
-    
-    if(discarded_frames==0){  
-      # if frames don't need to be discarded at the beginning of the video
-      # convert all files in the directory
-      for (i in 1:length(list.files("1_raw_wmv"))){
-        system(paste("ffmpeg -i \"1_raw_wmv/",list.files("1_raw_wmv")[i],"\" -f avi -vcodec rawvideo -pix_fmt gray8 -vf negate -t ",total_frames/fps," \"1_raw/",gsub(" ","_",gsub(".wmv", '', list.files("1_raw_wmv")[i], ignore.case = T),fixed=T),".avi\" ",sep=""))
+    # if frames don't need to be discarded at the beginning of the video
+    # convert all files in the directory
+    for (i in 1:length(list.files("1_raw_wmv"))){
+      system(paste("ffmpeg -y -r ",fps," -i  \"1_raw_wmv/",list.files("1_raw_wmv")[i],"\" -f avi -vcodec rawvideo -pix_fmt gray8 -vf negate \"1_raw/",gsub(" ","_",gsub(".wmv", '', list.files("1_raw_wmv")[i], ignore.case = T),fixed=T),".avi\" ",sep=""))
+    }
+    if(discarded_frames>0){  
+      # discard frames from the beginning of video if needed
+      # make temporary raw folder
+      system("mkdir 1_raw_tmp")
+      # for all files in the directory
+      for (i in 1:length(list.files("1_raw"))){
+        system(paste("ffmpeg -y -ss ",discarded_frames/fps," -i \"1_raw/",list.files("1_raw")[i],"\" -f avi -vcodec rawvideo \"1_raw_tmp/",list.files("1_raw")[i],"\"",sep=""))
       }
-    }else{
-      # if frames do not need to be discarded at the beginning of the video
-      # convert all files in the directory
-      for (i in 1:length(list.files("1_raw_wmv"))){
-        system(paste("ffmpeg -ss ",discarded_frames/fps," -i \"1_raw_wmv/",list.files("1_raw_wmv")[i],"\" -f avi -vcodec rawvideo -pix_fmt gray8 -vf negate -t ",(total_frames+discarded_frames)/fps," \"1_raw/",gsub(" ","_",gsub(".wmv", '', list.files("1_raw_wmv")[i], ignore.case = T),fixed=T),".avi\" ",sep=""))
-      }
+      # delete uncut raw
+      system("rm -r 1_raw")
+      # rename temp folder
+      system("mv 1_raw_tmp 1_raw")
     }
   }
   
@@ -385,13 +390,13 @@ if(execute_analysis == TRUE){
   
   # summarize trajectory data to individual-based data
   morph_mvt <- summarize_trajectories(trajectory.data.filtered, calculate.median=F, write = T, to.data, merged.data.folder)
- 
+  
   # get sample level info
   summarize_populations(trajectory.data.filtered, morph_mvt, write=T, to.data, merged.data.folder, video.description.folder, video.description.file, total_frames)
-
+  
   # create overlays for validation
   create_overlays_ffmpeg(to.data, trajectory.data.filtered, raw.video.folder, temp.overlay.folder, overlay.folder, fps, total_frames/fps, image_resolution[1], image_resolution[2], "both")
-
+  
   ########################################################################
   # some cleaning up
   system("rm -r 2_particle_data")
