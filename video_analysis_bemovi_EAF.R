@@ -332,6 +332,9 @@ if(execute_analysis == TRUE){
     # convert all files in the directory
     for (i in 1:length(list.files("1_raw_wmv"))){
       system(paste("ffmpeg -y -r ",fps," -i  \"1_raw_wmv/",list.files("1_raw_wmv")[i],"\" -f avi -vcodec rawvideo -pix_fmt gray8 -vf negate \"1_raw/",gsub(" ","_",gsub(".wmv", '', list.files("1_raw_wmv")[i], ignore.case = T),fixed=T),".avi\" ",sep=""))
+      
+      Sys.sleep(1)
+      
     }
     if(discarded_frames>0){  
       # discard frames from the beginning of video if needed
@@ -340,6 +343,9 @@ if(execute_analysis == TRUE){
       # for all files in the directory
       for (i in 1:length(list.files("1_raw"))){
         system(paste("ffmpeg -y -ss ",discarded_frames/fps," -i \"1_raw/",list.files("1_raw")[i],"\" -f avi -vcodec rawvideo \"1_raw_tmp/",list.files("1_raw")[i],"\"",sep=""))
+        
+        Sys.sleep(1)
+        
       }
       # delete uncut raw
       system("rm -r 1_raw")
